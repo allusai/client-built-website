@@ -1,0 +1,53 @@
+Workflow for making API connections faster:
+
+Client-side:
+Pass the request parameters to the API as JSON (that's what it accepts)
+Create a new client just for clarity each time
+Make the Guzzle get/post request
+
+API building:
+"request.body." is the way to get the parameters
+Keep the same naming convention
+Write the sql statement and then do the "con.query(sql)" stuff
+Make sure to set response.json(result) otherwise the page won't be redirected
+
+
+Careful of:
+Using "." for string concatenation
+Using quotes in SQL statements
+Accessing fields in the array in HTML: {{ $camera['deviceType']}}
+SQLite was being mixed with MySQL haha :)
+
+Even more important maybe:
+Figuring out how to open two folders in the same Sublime window
+Using Google Chrome for debugging
+Minimizing terminal window in the background since the nodemon and server will just keep running
+
+
+
+JSON Solution:
+The responseBody gets cast to a string, this has escaped characters.
+Therefore json_decode didn't work that well. Simple for loop to
+take out the front and back quotes as well as /'s and then we're gucci.
+
+Now on the frontend since this is a Javascript object it works like this
+	camera[0]['dataLink']
+
+Probably with multicams we have
+	camera[1]['dataLink']
+
+This is Javascript object access notation
+
+
+Things to take care of:
+1) Laravel controller /\ Guzzle client call and response -> JS object
+	Careful because an array is returned from Node api always
+	Even for the singleCameraView
+
+	responseBody > string > valid JSON > javascript object
+
+2) Node api /\ con.query call, JSON.stringify results
+
+3) Frontend 
+	
+		usually array > getting field values
